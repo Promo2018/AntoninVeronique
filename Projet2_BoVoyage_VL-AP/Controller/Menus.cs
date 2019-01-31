@@ -18,8 +18,10 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
         public Menus()
         {
-            
+
             //auth.Connexion();
+
+            //MajAge(); (appel proc stock)
 
         }
 
@@ -32,8 +34,9 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
         Voyage voyage = new Voyage();
         Participant participant = new Participant();
+        DossierReservation dossier = new DossierReservation();
 
-
+        
         public void SwitchMenus()
         {
 
@@ -50,6 +53,11 @@ namespace Projet2_BoVoyage_VL_AP.Controller
                     break;
 
 
+                case ("DOSSIER"):
+                    Affichage.Actions(Menu);
+                    Action = Console.ReadLine();
+                    break;
+
                 case ("VOYAGE"):
                     Affichage.Actions(Menu);
                     Action = Console.ReadLine();
@@ -61,11 +69,58 @@ namespace Projet2_BoVoyage_VL_AP.Controller
                     break;
 
                     
+                case ("RECHERCHER" + "DOSSIER"):
+
+                    //AMELIORATIONS : rechercher grâce à des ".Contains()" pour recherche puissante.
+
+                    Affichage.Question(Menu, Action);
+
+                    dossier.Rechercher();
+
+                    Action = "";
+
+                    break;
+
+
+                case ("VERIF SOLVABILITE" + "DOSSIER"):
+
+                    Affichage.Question(Menu, Action);
+
+                    dossier.ValiderSolvabilite();
+
+                    Action = "";
+
+                    break;
+
+
+                case ("ACCEPTER" + "DOSSIER"):
+
+                    Affichage.Question(Menu, Action);
+
+                    dossier.Accepter();
+
+                    Action = "";
+
+                    break;
+
+
+                case ("ANNULER" + "DOSSIER"):
+
+                    Affichage.Question(Menu, Action);
+
+                    dossier.Annuler("raison");
+
+                    Action = "";
+
+                    break;
+
+
+                    
                 case ("RECHERCHER" + "VOYAGE"):
 
                     //AMELIORATIONS : rechercher grâce à des ".Contains()" pour recherche puissante.
-                    
-                    Affichage.Rechercher(Menu);
+
+                    Affichage.Question(Menu, Action);
 
                     voyage.Rechercher();
 
@@ -74,10 +129,9 @@ namespace Projet2_BoVoyage_VL_AP.Controller
                     break;
                     
 
-                    
                 case ("MODIFIER" + "VOYAGE"):
 
-                    Affichage.Modifier(Menu);
+                    Affichage.Question(Menu, Action);
 
                     voyage.Modifier();
 
@@ -92,10 +146,10 @@ namespace Projet2_BoVoyage_VL_AP.Controller
                     //AMELIORATIONS : prendre en compte Age (automatique) et non adresse mail si client = false.
                     //AMELIORATIONS : selectionner destinations sans utiliser seulement l'ID destination.
                     //AMELIORATIONS : utiliser la methode suivante :
-                        //Voyage_ADO nouveau = new Voyage_ADO(4, "Toto", "titi", 2000, 500, "Mécanicien");
-                        //quel.create(nouveau);
+                    //Voyage_ADO nouveau = new Voyage_ADO(4, "Toto", "titi", 2000, 500, "Mécanicien");
+                    //quel.create(nouveau);
 
-                    Affichage.Ajouter(Menu);
+                    Affichage.Question(Menu, Action);
 
                     voyage.Ajouter();
 
@@ -107,7 +161,7 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
                 case ("SUPPRIMER" + "VOYAGE"):
 
-                    Affichage.Supprimer(Menu);
+                    Affichage.Question(Menu, Action);
 
                     voyage.Supprimer();
 
@@ -120,9 +174,9 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
                 case ("RECHERCHER" + "CLIENT"):
 
-                    //AMELIORATIONS : rechercher grâce à des "contain()" pour recherche puissante.
-                    
-                    Affichage.Rechercher(Menu);
+                    //AMELIORATIONS : rechercher grâce à des "Contain()" pour recherche puissante.
+
+                    Affichage.Question(Menu, Action);
 
                     participant.Rechercher();
 
@@ -134,7 +188,7 @@ namespace Projet2_BoVoyage_VL_AP.Controller
                     
                 case ("MODIFIER" + "CLIENT"):
 
-                    Affichage.Modifier(Menu);
+                    Affichage.Question(Menu, Action);
 
                     participant.Modifier();
 
@@ -148,18 +202,22 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
                     //AMELIORATIONS : prendre en compte Age (automatique) et non adresse mail si client = false.
                     //AMELIORATIONS : utiliser la methode suivante :
-                        //Participant_ADO nouveau = new Participant_ADO(4, "Toto", "titi", 2000, 500, "Mécanicien");
-                        //quel.create(nouveau);
+                    //Participant_ADO nouveau = new Participant_ADO(4, "Toto", "titi", 2000, 500, "Mécanicien");
+                    //quel.create(nouveau);
 
-                    Affichage.Ajouter(Menu);
+                    Affichage.Question(Menu, Action);
 
                     participant.Ajouter();
 
                     Action = "";
 
                     break;
-                    
 
+
+                case ("RETOUR MENU" + "DOSSIER"):
+                    Menu = "";
+                    Action = "";
+                    break;
                 case ("RETOUR MENU" + "CLIENT"):
                     Menu = "";
                     Action = "";
@@ -171,6 +229,11 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
                   
                 case ("DECONNEXION"):
+                    auth.Connexion();
+                    Menu = "";
+                    Action = "";
+                    break;
+                case ("DECONNEXION" + "DOSSIER"):
                     auth.Connexion();
                     Menu = "";
                     Action = "";
@@ -188,13 +251,16 @@ namespace Projet2_BoVoyage_VL_AP.Controller
                    
 
                 case ("QUITTER"):
-                    Quitter();
+                    Quitter(3);
+                    break;
+                case ("QUITTER" + "DOSSIER"):
+                    Quitter(4);
                     break;
                 case ("QUITTER" + "VOYAGE"):
-                    Quitter();
+                    Quitter(5);
                     break;
                 case ("QUITTER" + "CLIENT"):
-                    Quitter();
+                    Quitter(6);
                     break;
 
 
@@ -208,19 +274,8 @@ namespace Projet2_BoVoyage_VL_AP.Controller
                 case ("TEST"):
 
 
-                    //Participant_ADO autre = new Participant_ADO();
-                    //            Perso_ADO autre = new Perso_ADO(2,"","",0,0,"");
-                    //foreach (Participant_ADO elem in qui.Find(autre)) { Console.WriteLine(elem.ToString()); }
-
-                    /*
-                    b.Connect();
-                    Affichage.ShowDataSet(b.ExecSelect("select * from Participants"));
-                    //b.ExecUpdate("update dbo.perso set salaire = 10000 where ID_Participant=5");
-                    //Affichage.ShowResult(b.ExecProcStock("MAJ"));
-                    //String[] parametres = { "Val", "1000", "Niveau", "5000" };
-                    //Affichage.ShowResult(b.ExecProcStockWithParams("MAJ_PARAM",parametres));
-                    b.Disconnect();
-                    */
+                    Menu = "";
+                    Action = "";
 
                     break;
                     
@@ -230,13 +285,10 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
         }
 
-
-        public void Quitter()
+        public static void Quitter(int code)
         {
-            Environment.Exit(0);
+            Environment.Exit(code);
         }
-
-
 
     }
 }

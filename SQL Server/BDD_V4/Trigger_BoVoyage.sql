@@ -1,8 +1,10 @@
 use BoVoyage_VAV2;
 
-/*
+
 -------------Possible que si pas de reference dans d'autres tables------------
-CREATE TRIGGER Dossiervalide ON Dossiers
+DROP TRIGGER DossierValide;
+
+CREATE TRIGGER DossierValide ON Dossiers
 AFTER INSERT, UPDATE 
 AS 
 IF exists (SELECT numeroCB FROM Dossiers WHERE LEN(numeroCB) != 16)
@@ -13,8 +15,6 @@ RETURN
 END;
 GO
 
-insert into Dossiers (numeroCB , PrixTotal , RaisonAnnulDoss , EtatDossResa , ID_Voyage, ID_Client ) values ('372301389090996', '€17726,68', null, 'Supprimé', 17, 84);
-insert into Dossiers (numeroCB , PrixTotal , RaisonAnnulDoss , EtatDossResa , ID_Voyage, ID_Client ) values ('5610746400333852681', '€22564,23', null, 'Accepté', 87, 14);
 
 SELECT * FROM Dossiers;
 SELECT * FROM Participer;
@@ -27,12 +27,13 @@ SELECT * FROM Destinations WHERE ID_Destination = 56;
 CREATE TRIGGER SuppressionDossier ON Dossiers
 FOR DELETE 
 AS 
-IF exists (SELECT ID_Dossier FROM Dossiers WHERE EtatDossResa = 'Supprimé')
+IF exists (SELECT ID_Dossier FROM Dossiers WHERE EtatDossResa = 'Refusé')
 BEGIN
-DELETE FROM Dossiers WHERE EtatDossResa = 'Supprimé'
+DELETE FROM Dossiers WHERE EtatDossResa = 'Refusé'
 PRINT 'Dossiers supprimés';
 RETURN
 END;
 GO
+
 
 

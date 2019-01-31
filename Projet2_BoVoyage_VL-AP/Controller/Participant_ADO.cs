@@ -69,9 +69,16 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
         public void RechercheChamps()
         {
-            
-            NumeroSequentiel = Int32.Parse(Console.ReadLine());
-            
+            try
+            { 
+                NumeroSequentiel = Int32.Parse(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                NumeroSequentiel = 0;
+            }
+
+
             /*
             string recherche = Console.ReadLine();
 

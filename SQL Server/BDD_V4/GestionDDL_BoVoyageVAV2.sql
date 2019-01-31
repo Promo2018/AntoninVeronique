@@ -83,7 +83,7 @@ PRIMARY KEY(ID_Dossier)
 ALTER TABLE Dossiers ADD CONSTRAINT Fk_2Client FOREIGN KEY(ID_Client) REFERENCES Participants(ID_Participant);
 ALTER TABLE Dossiers ADD CONSTRAINT Fk_3Voyage FOREIGN KEY(ID_Voyage) REFERENCES Voyages(ID_Voyage) ON DELETE CASCADE;
 ALTER TABLE Dossiers ADD CONSTRAINT CHK_AnnulDossier_status CHECK (RaisonAnnulDoss ='Solvabilite Client' OR RaisonAnnulDoss='Agence Voyage' OR RaisonAnnulDoss='Annulation Client');
-ALTER TABLE Dossiers ADD CONSTRAINT CHK_EtatDossResa_status CHECK (EtatDossResa='En attente' OR EtatDossResa='En cours' OR EtatDossResa='Refusé' OR EtatDossResa='Accepté' OR EtatDossResa='Clos' OR EtatDossResa='Supprimé');
+ALTER TABLE Dossiers ADD CONSTRAINT CHK_EtatDossResa_status CHECK (EtatDossResa='En attente' OR EtatDossResa='En cours' OR EtatDossResa='Refusé' OR EtatDossResa='Accepté');
 
 ------------------------TABLE SOUSCRIRE -------------------------
 CREATE TABLE Souscrire  
@@ -124,7 +124,7 @@ numeroCB NVARCHAR(32) NOT NULL,
 PrixTotal MONEY, -- Calculer avec une methode
 RaisonAnnulDoss NVARCHAR(32), -- CHECK (RaisonAnnulDoss IN('Solvabilite Client','Agence Voyage','Annulation Client')),
 EtatDossResa NVARCHAR(16) NOT NULL, -- CHECK (EtatDossResa IN('En attente','En cours','Refusé','Accepté','Clos','Supprimé')),
-ID_Voyage INT, --FOREIGN KEY
-ID_Client INT, --FOREIGN KEY
+ID_Voyage INT, 
+ID_Client INT, 
 )
 SELECT * FROM DossiersHisto;

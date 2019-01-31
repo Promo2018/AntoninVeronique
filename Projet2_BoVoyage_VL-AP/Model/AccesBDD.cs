@@ -33,7 +33,7 @@ namespace Projet2_BoVoyage_VL_AP.Model
             this.catalog = catalog;
             this.security = security;
 
-            //MajAge(); (appel proc stock)
+            
 
         }
 
@@ -103,6 +103,90 @@ namespace Projet2_BoVoyage_VL_AP.Model
         }
 
 
+        public Boolean ExecVerifDoss(int idDoss)
+        {
+            bool result = true;
+
+            List<string> columns = new List<string>();
+
+            try
+            {
+
+                this.cmd.CommandText = "select * from VoyageDossier(" + idDoss + ");";
+                this.cmd.Connection = this.con;
+                this.dr = cmd.ExecuteReader();
+
+                Console.WriteLine("\r\n\tVoici le voyage relatif au dossier n° " + idDoss + " : \r\n");
+
+                while (dr.Read())
+                {
+                    Console.WriteLine(
+                        "\tPlaces disponibles = " + dr["PlacesDisponibles"].ToString() +
+                        "; " + dr["ID_Voyage"].ToString() +
+                        "; " + dr["DateAller"].ToString() +
+                        "; " + dr["DateRetour"].ToString() +
+                        "; " + dr["TarifTTC"].ToString() +
+                        "; " + dr["AgenceVoyage"].ToString() +
+                        "; " + dr["ID_Destination"].ToString() +
+                        "; " + dr["Continent"].ToString() +
+                        "; " + dr["Pays"].ToString() +
+                        "; " + dr["Region"].ToString() +
+                        "; \r\n\tDescription Voyage : " + dr["DescriptionVoyage"].ToString()
+                        );
+                }
+
+                this.dr.Close();
+
+                this.cmd.CommandText = "select * from ParticipantsDossier(" + idDoss + ");";
+                this.cmd.Connection = this.con;
+                this.dr = cmd.ExecuteReader();
+
+                Console.WriteLine("\r\n\tVoici les voyageurs inscrits au même dossier : \r\n");
+
+                while (dr.Read())
+                {
+                    Console.WriteLine(
+                        "\tClient = " + dr["Client"].ToString() +
+                        "; " + dr["ID_Participant"].ToString() +
+                        "; " + dr["Civilite"].ToString() +
+                        "; " + dr["Prenom"].ToString() +
+                        "; " + dr["Nom"].ToString() +
+                        "; " + dr["Adresse"].ToString() +
+                        "; " + dr["Telephone"].ToString() +
+                        "; " + dr["Email"].ToString() +
+                        "; " + dr["DateNaissance"].ToString() +
+                        "; " + dr["Age"].ToString()
+                        );
+                }
+
+                this.dr.Close();
+                this.cmd.CommandText = "select * from AssurancesDossier(" + idDoss + ");";
+                this.cmd.Connection = this.con;
+                this.dr = cmd.ExecuteReader();
+
+                Console.WriteLine("\r\n\tVoici les assurances souscrites par le client : \r\n");
+
+                while (dr.Read())
+                {
+                    Console.WriteLine(
+                        "\t" + dr["ID_Assurance"].ToString() +
+                        "; " + dr["Type_Assurance"].ToString()
+                        );
+                }
+
+                this.dr.Close();
+
+            }
+            catch (Exception e)
+            {
+                Affichage.ErreurCustom("requête");
+                Affichage.Erreur(e);
+                result = false;
+            }
+            return result;
+        }
+
+
         public Boolean ExecInsert(string rq1, string table)
         {
             bool result = true;
@@ -157,57 +241,6 @@ namespace Projet2_BoVoyage_VL_AP.Model
             return result;
         }
 
-        /*
-        public int ExecProcStock(string procedure)
-        {
-            int lignes = -1;
-            try
-            {
-                this.cmd.CommandText = procedure;
-                this.cmd.Connection = this.con;
-                this.cmd.CommandType = CommandType.StoredProcedure;
-                lignes = this.cmd.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                Affichage.ErreurCustom("procédure");
-                Affichage.Erreur(e);
-            }
-            return lignes;
-        }
-
-        public int ExecProcStockWithParams(string procedure, string[] parms)
-        {
-            int lignes = -1;
-            if (parms.Length == 0)
-            {
-                lignes = ExecProcStock(procedure);
-            }
-            else
-            {
-                SqlParameter par;
-
-                try
-                {
-                    this.cmd.CommandText = procedure;
-                    this.cmd.Connection = this.con;
-                    this.cmd.CommandType = CommandType.StoredProcedure;
-                    for (int i = 0; i < parms.Length; i = i + 2)
-                    {
-                        par = cmd.Parameters.AddWithValue('@' + parms[i], parms[i + 1]);
-                    }
-                    lignes = this.cmd.ExecuteNonQuery();
-                }
-                catch (Exception e)
-                {
-                    Affichage.ErreurCustom("procédure");
-                    Affichage.Erreur(e);
-                }
-            }
-            return lignes;
-        }
-        */
-
 
         public Boolean Disconnect()
         {
@@ -224,7 +257,7 @@ namespace Projet2_BoVoyage_VL_AP.Model
             }
             return result;
         }
-
+        
 
     }
 }

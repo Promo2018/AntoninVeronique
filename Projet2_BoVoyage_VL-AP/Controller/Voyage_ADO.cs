@@ -20,7 +20,10 @@ namespace Projet2_BoVoyage_VL_AP.Controller
         private decimal tarifTTC;
         private string agenceVoyage;
         private int id_Destination;
-
+        private string continent;
+        private string pays;
+        private string region;
+        private string description;
 
 
         public Voyage_ADO()
@@ -33,13 +36,16 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             tarifTTC = -1;
             agenceVoyage = null;
             id_Destination = -1;
+            continent = null;
+            pays = null;
+            region = null;
+            description = null;
 
         }
 
-        public Voyage_ADO(
-            int id_Voyage, DateTime dateAller, DateTime dateRetour, 
-            int placesDisponibles, decimal tarifTTC, string agenceVoyage, int id_Destination
-            )
+        /*
+        public Voyage_ADO( int id_Voyage, DateTime dateAller, DateTime dateRetour, 
+            int placesDisponibles, decimal tarifTTC, string agenceVoyage, int id_Destination )
         {
 
             Id_Voyage = id_Voyage;
@@ -51,7 +57,26 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             Id_Destination = id_Destination;
 
         }
+        */
 
+        public Voyage_ADO(int id_Voyage, DateTime dateAller, DateTime dateRetour,
+            int placesDisponibles, decimal tarifTTC, string agenceVoyage, int id_Destination,
+            string continent, string pays, string region, string description)
+        {
+
+            Id_Voyage = id_Voyage;
+            DateAller = dateAller;
+            DateRetour = dateRetour;
+            PlacesDisponibles = placesDisponibles;
+            TarifTTC = tarifTTC;
+            AgenceVoyage = agenceVoyage;
+            Id_Destination = id_Destination;
+            Continent = continent;
+            Pays = pays;
+            Region = region;
+            Description = description;
+
+        }
 
         public int Id_Voyage { get => id_Voyage; set => id_Voyage = value; }
         public DateTime DateAller { get => dateAller; set => dateAller = value; }
@@ -60,18 +85,40 @@ namespace Projet2_BoVoyage_VL_AP.Controller
         public decimal TarifTTC { get => tarifTTC; set => tarifTTC = value; }
         public string AgenceVoyage { get => agenceVoyage; set => agenceVoyage = value; }
         public int Id_Destination { get => id_Destination; set => id_Destination = value; }
+        public string Continent { get => continent; set => continent = value; }
+        public string Pays { get => pays; set => pays = value; }
+        public string Region { get => region; set => region = value; }
+        public string Description { get => description; set => description = value; }
 
 
         public string AfficherChamps()
         {
-            return (DateAller + "; " + DateRetour + "; " + PlacesDisponibles + "; " + TarifTTC + "; " + 
-                AgenceVoyage + "; " + Id_Destination);
+            /*
+            if (Pays == null && Continent == null && Region == null && Description == null)
+            {
+                return (DateAller + "; " + DateRetour + "; " + PlacesDisponibles + "; " +
+                TarifTTC + "; " + AgenceVoyage + "; " + Id_Destination);
+            }
+            else
+            {*/
+                return (Id_Voyage + "; " + DateAller + "; " + DateRetour + "; " + PlacesDisponibles + "; " + TarifTTC + "; " + AgenceVoyage + "; " +
+                Id_Destination + "; " + Continent + "; " + Pays + "; " + Region + "; " + Description);
+            //}
+            
         }
 
         public void RechercheChamps()
         {
 
-            Id_Voyage = Int32.Parse(Console.ReadLine());
+            try
+            {
+                Id_Voyage = Int32.Parse(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Id_Voyage = 0;
+            }
+            
 
             /*
             string recherche = Console.ReadLine();
@@ -85,7 +132,6 @@ namespace Projet2_BoVoyage_VL_AP.Controller
   
             */
         }
-
 
 
     }

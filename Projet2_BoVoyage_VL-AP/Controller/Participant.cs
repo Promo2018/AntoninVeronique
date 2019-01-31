@@ -20,40 +20,12 @@ namespace Projet2_BoVoyage_VL_AP.Controller
         }
 
 
-        Participant_ADO partic = new Participant_ADO();
+        Participant_ADO participantADO = new Participant_ADO();
 
         AccesBDD bdd = new AccesBDD("localhost", "BoVoyage_VAV2", "SSPI");
 
         List<string> champs = new List<string>();
 
-
-        public List<Participant_ADO> Find(int id_participant)
-        {
-            this.bdd.Connect();
-            DataSet ds = this.bdd.ExecSelect("select * from Participants where ID_Participant=" + id_participant + ";");
-            List<Participant_ADO> maListe = new List<Participant_ADO>();
-
-            if (ds.Tables["Resultat"].Rows.Count > 0)
-            {
-                foreach (DataRow ligne in ds.Tables["Resultat"].Rows)
-                {
-                    Participant_ADO particip = new Participant_ADO(
-                        Int32.Parse(ligne["ID_Participant"].ToString()),
-                        ligne["Civilite"].ToString(),
-                        ligne["Nom"].ToString(), 
-                        ligne["Prenom"].ToString(), 
-                        ligne["Adresse"].ToString(), 
-                        ligne["Telephone"].ToString(), 
-                        DateTime.Parse(ligne["DateNaissance"].ToString()),
-                        ligne["Age"].ToString(),
-                        Boolean.Parse(ligne["Client"].ToString()),
-                        ligne["Email"].ToString()
-                        );
-                    maListe.Add(particip);
-                }
-            }
-            return maListe;
-        }
 
 
         public List<Participant_ADO> Find(Participant_ADO id)
@@ -81,7 +53,7 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             {
                 foreach (DataRow ligne in ds.Tables["Resultat"].Rows)
                 {
-                    Participant_ADO particip = new Participant_ADO(
+                    Participant_ADO partic = new Participant_ADO(
                         Int32.Parse(ligne["ID_Participant"].ToString()),
                         ligne["Civilite"].ToString(),
                         ligne["Nom"].ToString(),
@@ -94,7 +66,7 @@ namespace Projet2_BoVoyage_VL_AP.Controller
                         ligne["Email"].ToString()
                         ); 
 
-                    maListe.Add(particip);
+                    maListe.Add(partic);
                 }
             }
             return maListe;
@@ -108,16 +80,15 @@ namespace Projet2_BoVoyage_VL_AP.Controller
                 "('" + p.Civilite + "','" + p.Nom + "','" + p.Prenom + "','" + p.Adresse + "','" + p.Telephone + "','" +
                 p.DateNaissance + "'," + null + "," + Convert.ToInt32(p.Client) + ",'" + p.Email + "');"
                 );
-
         }
 
 
         public void Modifier()
         {
 
-            partic.RechercheChamps();
+            participantADO.RechercheChamps();
 
-            foreach (Participant_ADO elem in Find(partic))
+            foreach (Participant_ADO elem in Find(participantADO))
             {
                 Console.WriteLine(elem.AfficherChamps());
             }
@@ -171,7 +142,7 @@ namespace Projet2_BoVoyage_VL_AP.Controller
                 }
                 if (champs.IndexOf(line) + 1 < champs.Count()) { rq += ","; }
             }
-            rq += " where ID_Participant = " + partic.NumeroSequentiel + " ;";
+            rq += " where ID_Participant = " + participantADO.NumeroSequentiel + " ;";
 
             bdd.Connect();
             bdd.ExecUpdate(rq);
@@ -181,9 +152,9 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
         public void Rechercher()
         {
-            partic.RechercheChamps();
+            participantADO.RechercheChamps();
 
-            foreach (Participant_ADO elem in Find(partic))
+            foreach (Participant_ADO elem in Find(participantADO))
             {
                 Console.WriteLine(elem.AfficherChamps());
             }
@@ -201,35 +172,6 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
         }
 
-
-        /* PAS UTILE POUR CLIENT
-        public void Supprimer(int id)
-        {
-            this.bdd.ExecUpdate("delete from perso where ID_Participants=" + id + ";");
-        }
-        */
-
-        /*
-        public void Afficher()
-        {
-            string request = "";
-            string answer = "";
-            Affichage.Requete();
-            request = Console.ReadLine();
-            Affichage.Reponse();
-            answer = Console.ReadLine();
-            //List<string> listAnswer = Console.ReadLine().Trim().Split(new[] { ';' }, StringSplitOptions.None).ToList();
-            //foreach (string line in listAnswer)
-            //{
-               // answer += line;
-              //  if (listAnswer.IndexOf(line) < listAnswer.Count() - 1) { answer += "; "; }
-           // }
-           // participantADO.SelectADO(request, answer);
-        }
-        */
-
-
     }
-
 
 }

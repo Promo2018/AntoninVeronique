@@ -1,54 +1,34 @@
+USE BoVoyage_VAV2;
 
---USE BoVoyage_VA;
-
---FONCTION recherche nombre de champs + liste noms des champs;
---DROP FUNCTION Champs;
-
-CREATE FUNCTION Champs(@bdd nvarchar(32),@tablette nvarchar(32))
-RETURNS TABLE
-AS
-RETURN (SELECT COLUMN_NAME
-FROM INFORMATION_SCHEMA.COLUMNS 
-WHERE TABLE_CATALOG = @bdd AND TABLE_SCHEMA = 'dbo'
-AND TABLE_NAME = @tablette);
+------------FONCTION pour Calculer l'age des Participants au jour près-------------------
+CREATE FUNCTION CalcAge(@ID_P INT)
+RETURNS INT
+AS 
+BEGIN
+RETURN (SELECT (DATEDIFF (DAY, (Select DateNaissance from Participants Where ID_Participant = @ID_P) ,GETDATE())/365));
+END;
 GO
 
-/*
-CREATE FUNCTION ListeParams()
+SELECT dbo.CalcAge(1);
 
-DECLARE @var_a nvarchar(32);
 
-RETURNS  
-AS
-RETURN ();
+------------FONCTION pour Calculer le différence entre le nombre de Places dispo et le nombre de Participant sur Dossier-
+
+CREATE FUNCTION CalcDiffPlace(@ID_D INT)
+RETURNS INT
+AS 
+BEGIN
+DECLARE @resultP INT, @nbParticipantDossier INT, @nbPlaceVoyage INT;
+SET @nbParticipantDossier = (SELECT COUNT (DISTINCT ID_Participant) FROM Participer P, Dossiers D WHERE D.ID_Dossier = P.ID_Dossier and D.ID_Dossier = @ID_D);
+SET @nbPlaceVoyage = (SELECT V.PlacesDisponibles FROM Voyages V, Dossiers D WHERE D.ID_Voyage = V.ID_Voyage and D.ID_Dossier = @ID_D);
+SET @resultP = @nbPlaceVoyage - @nbParticipantDossier ;
+RETURN @resultP;
+END;
 GO
 
-select * from Champs('BoVoyage_VA','Individus');
-select COUNT(*) from Champs('BoVoyage_VA','Individus');
+SELECT dbo.CalcDiffPlace(8);
 
+SELECT DISTINCT P.ID_Participant, P.ID_Dossier FROM Participer P, Dossiers D WHERE D.ID_Dossier = P.ID_Dossier and D.ID_Dossier = 56;
 
---###########################
--- Pour insérer des données
-CREATE PROCEDURE Insertion()
+SELECT DISTINCT S.ID_Assurance, S.ID_Dossier FROM Souscrire S, Dossiers D WHERE D.ID_Dossier = S.ID_Dossier and D.ID_Dossier = 18;
 
-AS
-
-
-GO
-
-SET IDENTITY_INSERT Individus OFF
-
-INSERT into Individus (select * from Champs('BoVoyage_VA','Individus')) values (Mme,Krtefee,Reanie,2000-05-21,5 rue de la grue,0798562485);
-
-
-
-select * from Individus;
-*/
-
-declare @champs nvarchar(32);
-declare C1 cursor for select * from Champs('BoVoyage_VA','Individus');
-open C1;
-fetch next from C1 into @champs;
-print @champs;
-close C1;
-deallocate C1;

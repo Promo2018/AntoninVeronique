@@ -40,7 +40,6 @@ namespace Projet2_BoVoyage_VL_AP.Controller
         }*/
 
 
-
         public void TestAge()
         {
             Console.WriteLine("\r\n\tVeuillez entrer une date de naissance :");

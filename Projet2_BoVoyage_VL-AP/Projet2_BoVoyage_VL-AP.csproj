@@ -47,8 +47,6 @@
     <Compile Include="Controller\Assurance.cs" />
     <Compile Include="Controller\AssuranceAnnulation.cs" />
     <Compile Include="Controller\Authentification.cs" />
-    <Compile Include="Controller\Client.cs" />
-    <Compile Include="Controller\Destination.cs" />
     <Compile Include="Controller\DossierReservation.cs" />
     <Compile Include="Controller\DossierReservation_ADO.cs" />
     <Compile Include="Controller\Menus.cs" />

@@ -24,26 +24,28 @@ namespace Projet2_BoVoyage_VL_AP.View
             Console.WriteLine("");
             Console.WriteLine("\r\n\t***********************************************");
             Console.WriteLine("\tMENU | A quelle interface voulez-vous accéder ?");
-            Console.WriteLine("\t     | Voyage, Client, Deconnexion, Quitter\r\n");
+            Console.WriteLine("\t     | Dossier, Voyage, Client, Deconnexion, Quitter\r\n");
         }
 
         public static void Actions(string menu)
         {
-            string suppr = "";
+            
+            string actions = "";
 
-            if (menu.ToUpper() == "VOYAGE") { suppr = "Supprimer, "; }
-            else { suppr = ""; }
+            if (menu.ToUpper() == "VOYAGE") { actions = "Modifier, Ajouter, Supprimer,"; }
+            else if (menu.ToUpper() == "DOSSIER") { actions = "Accepter, Verif Solvabilite, Annuler,"; }
+            else { actions = "Modifier, Ajouter,"; }
 
             Console.WriteLine("");
             Console.WriteLine("\r\n\t***********************************************");
             Console.WriteLine("\t" + menu.ToUpper() + " | Que souhaitez-vous faire ?");
-            Console.WriteLine("\t       | Rechercher, Modifier, Ajouter, " + suppr + "Retour Menu, Deconnexion, Quitter\r\n");
+            Console.WriteLine("\t       | Rechercher, " +  actions + " Retour Menu, Deconnexion, Quitter\r\n");
 
         }
 
-        public static void Rechercher(string menu)
+        public static void Question(string menu, string action)
         {
-            Console.WriteLine("\r\n\tQuel " + menu + " souhaitez-vous rechercher ?");
+            Console.WriteLine("\r\n\tQuel " + menu + " souhaitez-vous " + action + " ?");
         }
 
         
@@ -72,10 +74,10 @@ namespace Projet2_BoVoyage_VL_AP.View
             Console.WriteLine("\r\n\tQuel " + menu + " souhaitez-vous supprimer ? (entrer son identifiant)");
         }
 
-        public static void Valider(string cela)
+        public static void Valider(string action, string cela)
         {
-            Console.WriteLine("\r\n\tEtes-vous sûrs de vouloir supprimer :\r\n" +
-                "\r\n\t" + cela + 
+            Console.WriteLine("\r\n\tEtes-vous sûrs de vouloir " + action + " :\r\n" +
+                "\r\n\t" + cela + " ?" +
                 "\r\n\t(oui / non)");
         }
 

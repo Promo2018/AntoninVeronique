@@ -34,11 +34,11 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             Mdp = "";
 
             NomDeCompte = Console.ReadLine().ToUpper();
-            if (NomDeCompte.ToUpper() == "QUITTER") { Environment.Exit(0); }
+            if (NomDeCompte.ToUpper() == "QUITTER") { Menus.Quitter(1); }
 
             Mdp = Console.ReadLine();
 
-            if (Mdp.ToUpper() == "QUITTER") { Environment.Exit(0); }
+            if (Mdp.ToUpper() == "QUITTER") { Menus.Quitter(2); }
             else if (nomDeCompte == "ADMIN" && mdp == "admin")
             {
 

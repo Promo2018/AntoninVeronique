@@ -12,31 +12,98 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 {
     class DossierReservation_ADO 
     {
-        
+
+        private int id_Dossier;
+        private string numeroCarteBancaire;
+        private decimal prixTotal;
+        private string raisonAnnulDoss;
+        private string etatDossResa;
+        private int id_Voyage;
+        private int id_Participant;
+
         public DossierReservation_ADO()
         {
-            //A IMPLEMENTER
-
+            id_Dossier = -1;
+            numeroCarteBancaire = null;
+            prixTotal = -1;
+            raisonAnnulDoss = null;
+            etatDossResa = null;
+            id_Voyage = -1;
+            id_Participant = -1;
         }
 
-
-
-        public void AnnulerADO(string request)
+        public DossierReservation_ADO(int id_Dossier, string numeroCarteBancaire, decimal prixTotal, 
+            string raisonAnnulDoss, string etatDossResa, int id_Voyage, int id_Participant)
         {
-            //A IMPLEMENTER
+            Id_Dossier = id_Dossier;
+            NumeroCarteBancaire = numeroCarteBancaire;
+            RaisonAnnulDoss = raisonAnnulDoss;
+            EtatDossResa = etatDossResa;
+            Id_Voyage = id_Voyage;
+            Id_Participant = id_Participant;
+        }
+        
+        /*
+        public decimal PrixTotal
+        {
+            get
+            {
+                decimal prixTotal = 100;
+                return prixTotal; //Qu'est-ce que le prix total ?
+            }
+        }
+        */
 
+        public int Id_Dossier { get => id_Dossier; set => id_Dossier = value; }
+        public string NumeroCarteBancaire { get => numeroCarteBancaire; set => numeroCarteBancaire = value; }
+        public decimal PrixTotal { get => prixTotal; set => prixTotal = value; }
+        public string RaisonAnnulDoss { get => raisonAnnulDoss; set => raisonAnnulDoss = value; }
+        public string EtatDossResa { get => etatDossResa; set => etatDossResa = value; }
+        public int Id_Voyage { get => id_Voyage; set => id_Voyage = value; }
+        public int Id_Participant { get => id_Participant; set => id_Participant = value; }
+
+        public string AfficherChamps()
+        {
+            return (Id_Dossier + "; " + NumeroCarteBancaire + "; " + NumeroCarteBancaire + "; " + PrixTotal + "; " +
+                RaisonAnnulDoss + "; " + EtatDossResa + "; " + Id_Voyage + "; " + Id_Participant);
         }
 
-        public void ValiderSolvabiliteADO(string request)
-        {
-            //A IMPLEMENTER
+        public enum RaisonAnnulationDossier : byte { client, placesInsuffisantes };
+        public enum EtatDossierReservation : byte { enAttente, enCours, refusee, acceptee };
 
+
+        public void RechercheChamps()
+        {
+            try
+            {
+                Id_Dossier = Int32.Parse(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Id_Dossier = 0;
+            }
+
+
+            /*
+            string recherche = Console.ReadLine();
+
+            if (Civilite.Contains(recherche)) { Civilite = recherche; }
+            if (Nom.Contains(recherche)) { Nom = recherche; }
+            if (Prenom.Contains(recherche)) { Prenom = recherche; }
+            if (Adresse.Contains(recherche)) { Adresse = recherche; }
+            if (Telephone.Contains(recherche)) { Telephone = recherche; }
+            if (DateNaissance.ToString().Contains(recherche)) { DateNaissance = DateTime.Parse(recherche); }
+            if (Age.Contains(recherche)) { Age = recherche; }
+            if (Client.ToString().Contains(recherche)) { Client = Convert.ToBoolean(recherche); }
+            if (Email.Contains(recherche)) { Email = recherche; }
+
+            */
         }
 
-
-        public void AccepterADO(string request)
+        public void TestPrixTotal()
         {
-            //A IMPLEMENTER
+
+            Console.WriteLine("\r\n\tLe prix total du dossier est : " + PrixTotal + ".");
 
         }
 
