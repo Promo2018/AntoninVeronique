@@ -33,7 +33,7 @@ namespace Projet2_BoVoyage_VL_AP.Model
             this.catalog = catalog;
             this.security = security;
 
-            
+            ExecMajAge();
 
         }
 
@@ -103,11 +103,36 @@ namespace Projet2_BoVoyage_VL_AP.Model
         }
 
 
-        public Boolean ExecVerifDoss(int idDoss)
+        public Boolean ExecMajAge()
         {
             bool result = true;
 
-            List<string> columns = new List<string>();
+            Connect();
+
+            try
+            {
+
+                this.cmd.CommandText = "execute MajAge;";
+                this.cmd.Connection = this.con;
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception e)
+            {
+                Affichage.ErreurCustom("requête");
+                Affichage.Erreur(e);
+                result = false;
+            }
+
+            Disconnect();
+
+            return result;
+        }
+
+
+        public Boolean ExecVerifDoss(int idDoss)
+        {
+            bool result = true;
 
             try
             {

@@ -30,15 +30,16 @@ namespace Projet2_BoVoyage_VL_AP.Controller
         public string Adresse { get => adresse; set => adresse = value; }
         public string Telephone { get => telephone; set => telephone = value; }
         public DateTime DateNaissance { get => dateNaissance; set => dateNaissance = value; }
-        public string Age { get => age; set => age = value; }
+        public string Age { get => age; }
+
         /*{
             get
             {
                 int age = DateTime.Now.Year - DateNaissance.Year - (DateTime.Now.Month < DateNaissance.Month ? 1 : DateTime.Now.Day < DateNaissance.Day ? 1 : 0);
                 return age;
             }
-        }*/
-
+        }
+        
 
         public void TestAge()
         {
@@ -47,7 +48,7 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             Console.WriteLine("\r\n\tL'âge de la personne est " + Age + " ans.");
 
         }
-
+        */
 
     }
 }

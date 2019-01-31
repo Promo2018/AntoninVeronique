@@ -39,7 +39,7 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             if (!string.IsNullOrEmpty(id.Prenom)) { rq += "Prenom = '" + id.Prenom + "' and "; }
             if (!string.IsNullOrEmpty(id.Adresse)) { rq += "Adresse = '" + id.Adresse + "' and "; }
             if (!string.IsNullOrEmpty(id.Telephone)) { rq += "Telephone = '" + id.Telephone + "' and "; }
-            if (id.DateNaissance > DateTime.Parse("02/01/1990")) { rq += "DateNaissance = '" + id.DateNaissance + "' and "; }
+            if (id.DateNaissance > DateTime.Parse("02/01/1990")) { rq += "DateNaissance = '" + id.DateNaissance.ToShortDateString() + "' and "; }
             if (!string.IsNullOrEmpty(id.Client.ToString())) { rq += "Client = '" + id.Client + "' and "; }
             if (!string.IsNullOrEmpty(id.Email)) { rq += "Email = '" + id.Email + "' and "; }
             // rajout de la condition, toujours vraie "1 = 1" pour terminer le dernier 'and'

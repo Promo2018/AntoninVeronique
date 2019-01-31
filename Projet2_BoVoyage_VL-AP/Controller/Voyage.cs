@@ -32,8 +32,8 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             // construction de la requete
             string rq = "select * from Voyages V, Destinations D where D.ID_Destination = V.ID_Destination and ";
             if (id.Id_Voyage > -1) { rq += "V.ID_Voyage = " + id.Id_Voyage + " and "; }
-            if (id.DateAller > DateTime.Parse("02/01/1990")) { rq += "V.DateAller = '" + id.DateAller + "' and "; }
-            if (id.DateRetour > DateTime.Parse("02/01/1990")) { rq += "V.DateRetour = '" + id.DateRetour + "' and "; }
+            if (id.DateAller > DateTime.Parse("02/01/1990")) { rq += "V.DateAller = '" + id.DateAller.ToShortDateString() + "' and "; }
+            if (id.DateRetour > DateTime.Parse("02/01/1990")) { rq += "V.DateRetour = '" + id.DateRetour.ToShortDateString() + "' and "; }
             if (id.PlacesDisponibles > -1) { rq += "V.PlacesDisponibles = " + id.PlacesDisponibles + " and "; }
             if (id.TarifTTC > -1) { rq += "V.TarifTTC = " + id.TarifTTC + " and "; }
             if (!string.IsNullOrEmpty(id.AgenceVoyage)) { rq += "V.AgenceVoyage = '" + id.AgenceVoyage + "' and "; }

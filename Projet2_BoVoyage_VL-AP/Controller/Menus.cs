@@ -21,8 +21,6 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
             //auth.Connexion();
 
-            //MajAge(); (appel proc stock)
-
         }
 
         public string Menu { get => menu; set => menu = value; }

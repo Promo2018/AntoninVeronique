@@ -40,3 +40,10 @@ C:\Users\Adminl\Desktop\Projet2_Bovoyage_VL-AP_2019-01-31v2\Projet2_BoVoyage_VL-
 C:\Users\Adminl\Desktop\Projet2_Bovoyage_VL-AP_2019-01-31v2\Projet2_BoVoyage_VL-AP\obj\Debug\Projet2_BoVoyage_VL-AP.csproj.CoreCompileInputs.cache
 C:\Users\Adminl\Desktop\Projet2_Bovoyage_VL-AP_2019-01-31v2\Projet2_BoVoyage_VL-AP\obj\Debug\Projet2_BoVoyage_VL-AP.exe
 C:\Users\Adminl\Desktop\Projet2_Bovoyage_VL-AP_2019-01-31v2\Projet2_BoVoyage_VL-AP\obj\Debug\Projet2_BoVoyage_VL-AP.pdb
+C:\Users\Adminl\Desktop\Projet2_Bovoyage_VL-AP_2019-01-31v3\Projet2_BoVoyage_VL-AP\bin\Debug\Projet2_BoVoyage_VL-AP.exe.config
+C:\Users\Adminl\Desktop\Projet2_Bovoyage_VL-AP_2019-01-31v3\Projet2_BoVoyage_VL-AP\bin\Debug\Projet2_BoVoyage_VL-AP.exe
+C:\Users\Adminl\Desktop\Projet2_Bovoyage_VL-AP_2019-01-31v3\Projet2_BoVoyage_VL-AP\bin\Debug\Projet2_BoVoyage_VL-AP.pdb
+C:\Users\Adminl\Desktop\Projet2_Bovoyage_VL-AP_2019-01-31v3\Projet2_BoVoyage_VL-AP\obj\Debug\Projet2_BoVoyage_VL-AP.csprojAssemblyReference.cache
+C:\Users\Adminl\Desktop\Projet2_Bovoyage_VL-AP_2019-01-31v3\Projet2_BoVoyage_VL-AP\obj\Debug\Projet2_BoVoyage_VL-AP.csproj.CoreCompileInputs.cache
+C:\Users\Adminl\Desktop\Projet2_Bovoyage_VL-AP_2019-01-31v3\Projet2_BoVoyage_VL-AP\obj\Debug\Projet2_BoVoyage_VL-AP.exe
+C:\Users\Adminl\Desktop\Projet2_Bovoyage_VL-AP_2019-01-31v3\Projet2_BoVoyage_VL-AP\obj\Debug\Projet2_BoVoyage_VL-AP.pdb

@@ -101,7 +101,7 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             }
             else
             {*/
-                return (Id_Voyage + "; " + DateAller + "; " + DateRetour + "; " + PlacesDisponibles + "; " + TarifTTC + "; " + AgenceVoyage + "; " +
+                return (Id_Voyage + "; " + DateAller.ToShortDateString() + "; " + DateRetour.ToShortDateString() + "; " + PlacesDisponibles + "; " + TarifTTC + "; " + AgenceVoyage + "; " +
                 Id_Destination + "; " + Continent + "; " + Pays + "; " + Region + "; " + Description);
             //}
             

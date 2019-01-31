@@ -47,7 +47,7 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             Adresse = adresse;
             Telephone = telephone;
             DateNaissance = dateNaissance;
-            Age = age;
+            //Age = age;
             Client = client;
             Email = email;
             
@@ -63,7 +63,7 @@ namespace Projet2_BoVoyage_VL_AP.Controller
         public string AfficherChamps()
         {
             return (Civilite + "; " + Prenom + "; " + Nom + "; " + Adresse + "; " + 
-                Telephone + "; " + DateNaissance + "; " + Age + "; " + Client + "; " + Email);
+                Telephone + "; " + DateNaissance.ToShortDateString() + "; " + Age + "; " + Client + "; " + Email);
         }
 
 
