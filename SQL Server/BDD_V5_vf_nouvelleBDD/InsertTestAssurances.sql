@@ -1,0 +1,11 @@
+--USE BoVoyage_VAV2;
+insert into Assurances (Type_Assurance, PrixAss) values ('Annulation', '38.83');
+insert into Assurances (Type_Assurance, PrixAss) values ('Décès', '40.73');
+insert into Assurances (Type_Assurance, PrixAss) values ('Rapatriement', '15.56');
+insert into Assurances (Type_Assurance, PrixAss) values ('Vol', '35.72');
+insert into Assurances (Type_Assurance, PrixAss) values ('Personne', '35.84');
+insert into Assurances (Type_Assurance, PrixAss) values ('Dommages', '16.98');
+insert into Assurances (Type_Assurance, PrixAss) values ('Perte', '20.61');
+insert into Assurances (Type_Assurance, PrixAss) values ('Maladie', '48.43');
+insert into Assurances (Type_Assurance, PrixAss) values ('Tourista', '17.00');
+insert into Assurances (Type_Assurance, PrixAss) values ('De Nada', '35.24');
