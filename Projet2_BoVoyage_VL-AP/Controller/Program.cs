@@ -17,14 +17,10 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
         static void Main(string[] args)
         {
-
+            
             Menus menus = new Menus();
-
-
-            Affichage.CheminDossier();
-
+            
             menus.SwitchMenus();
-
 
             Menus.Quitter(0);
 

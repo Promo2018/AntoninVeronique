@@ -30,7 +30,7 @@ namespace Projet2_BoVoyage_VL_AP.Controller
         public string Adresse { get => adresse; set => adresse = value; }
         public string Telephone { get => telephone; set => telephone = value; }
         public DateTime DateNaissance { get => dateNaissance; set => dateNaissance = value; }
-        public string Age { get => age; }
+        public string Age { get => age; set => age = value; }
 
         /*{
             get

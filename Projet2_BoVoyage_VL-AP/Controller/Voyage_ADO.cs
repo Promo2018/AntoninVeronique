@@ -93,44 +93,60 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
         public string AfficherChamps()
         {
-            /*
-            if (Pays == null && Continent == null && Region == null && Description == null)
-            {
-                return (DateAller + "; " + DateRetour + "; " + PlacesDisponibles + "; " +
-                TarifTTC + "; " + AgenceVoyage + "; " + Id_Destination);
-            }
-            else
-            {*/
-                return (Id_Voyage + "; " + DateAller.ToShortDateString() + "; " + DateRetour.ToShortDateString() + "; " + PlacesDisponibles + "; " + TarifTTC + "; " + AgenceVoyage + "; " +
-                Id_Destination + "; " + Continent + "; " + Pays + "; " + Region + "; " + Description);
-            //}
-            
+            return ("\r\n\tIDVoyage= " + Id_Voyage + "; DateAller= " + DateAller.ToShortDateString() + "; DateRetour= " + 
+                DateRetour.ToShortDateString() + "; PlacesDisponibles=" + PlacesDisponibles + "; Tarif/Pers(EUR)= " + 
+                TarifTTC + "; Agence= " + AgenceVoyage + "; IDDestination= " + Id_Destination + "; Continent= " + 
+                Continent + "; Pays= " + Pays + "; Region= " + Region + "; \r\n\tDescriptionVoyage= " + Description);
         }
 
-        public void RechercheChamps()
+
+        public void RechercheChampsID()
         {
 
             try
             {
                 Id_Voyage = Int32.Parse(Console.ReadLine());
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Id_Voyage = 0;
+                Affichage.Erreur(e);
+            }
+
+        }
+
+
+        public void RechercheChampsGeneral()
+        {
+
+            try
+            {
+                string recherche = Console.ReadLine();
+
+                
+                bool successInt = Int32.TryParse(recherche, out int num);
+                bool successDat = DateTime.TryParse(recherche, out DateTime dat);
+                bool successDec = Decimal.TryParse(recherche, out decimal dec);
+
+                AgenceVoyage = recherche.ToString();
+                Continent = recherche.ToString();
+                Pays = recherche.ToString();
+                Region = recherche.ToString();
+                Description = recherche.ToString();
+
+                if (successInt) { Id_Voyage = num; Id_Destination = num; PlacesDisponibles = num; }
+                else { Id_Voyage = -1; Id_Destination = -1; PlacesDisponibles = -1; }
+                if (successDat) { DateAller = dat; DateRetour = dat; }
+                else { DateAller = DateTime.Parse("01/01/1900"); DateRetour = DateTime.Parse("01/01/1900"); }
+                if (successDec) { TarifTTC = dec; }
+                else { TarifTTC = -1; }
+                
+            }
+            catch (Exception e)
+            {
+                Affichage.Erreur(e);
             }
             
 
-            /*
-            string recherche = Console.ReadLine();
-
-            if (DateAller.Contains(DateTime.TryParse(recherche))) { DateAller = DateTime.Parse(recherche); }
-            if (DateRetour.Contains(DateTime.TryParse(recherche))) { DateRetour = DateTime.Parse(recherche); }
-            if (PlacesDisponibles.Contains(Int32.TryParse(recherche))) { PlacesDisponibles = Int32.Parse(recherche); }
-            if (TarifTTC.Contains(Decimal.Parse(recherche))) { TarifTTC = Decimal.Parse(recherche); }
-            if (AgenceVoyage.Contains(recherche)) { AgenceVoyage = recherche; }
-            if (Id_Destination.Contains(Int32.TryParse(recherche))) { Id_Destination = Int32.Parse(recherche); }
-  
-            */
         }
 
 

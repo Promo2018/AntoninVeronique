@@ -62,17 +62,20 @@ namespace Projet2_BoVoyage_VL_AP.Controller
         public int Id_Voyage { get => id_Voyage; set => id_Voyage = value; }
         public int Id_Participant { get => id_Participant; set => id_Participant = value; }
 
-        public string AfficherChamps()
-        {
-            return (Id_Dossier + "; " + NumeroCarteBancaire + "; " + NumeroCarteBancaire + "; " + PrixTotal + "; " +
-                RaisonAnnulDoss + "; " + EtatDossResa + "; " + Id_Voyage + "; " + Id_Participant);
-        }
 
         public enum RaisonAnnulationDossier : byte { client, placesInsuffisantes };
         public enum EtatDossierReservation : byte { enAttente, enCours, refusee, acceptee };
 
 
-        public void RechercheChamps()
+        
+        public string AfficherChamps()
+        {
+            return (Id_Dossier + "; " + NumeroCarteBancaire + "; " + NumeroCarteBancaire + "; " + PrixTotal + "; " +
+                RaisonAnnulDoss + "; " + EtatDossResa + "; " + Id_Voyage + "; " + Id_Participant);
+        }
+        
+
+        public void RechercheChampsID()
         {
             try
             {
@@ -83,22 +86,22 @@ namespace Projet2_BoVoyage_VL_AP.Controller
                 Id_Dossier = 0;
             }
 
-
-            /*
-            string recherche = Console.ReadLine();
-
-            if (Civilite.Contains(recherche)) { Civilite = recherche; }
-            if (Nom.Contains(recherche)) { Nom = recherche; }
-            if (Prenom.Contains(recherche)) { Prenom = recherche; }
-            if (Adresse.Contains(recherche)) { Adresse = recherche; }
-            if (Telephone.Contains(recherche)) { Telephone = recherche; }
-            if (DateNaissance.ToString().Contains(recherche)) { DateNaissance = DateTime.Parse(recherche); }
-            if (Age.Contains(recherche)) { Age = recherche; }
-            if (Client.ToString().Contains(recherche)) { Client = Convert.ToBoolean(recherche); }
-            if (Email.Contains(recherche)) { Email = recherche; }
-
-            */
         }
+
+        /*
+        public void RechercheChampsGeneral()
+        {
+            try
+            {
+                Id_Dossier = Int32.Parse(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Id_Dossier = 0;
+            }
+
+        }
+        */
 
         public void TestPrixTotal()
         {

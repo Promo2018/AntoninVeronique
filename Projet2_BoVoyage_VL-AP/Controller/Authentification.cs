@@ -33,15 +33,15 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             NomDeCompte = "";
             Mdp = "";
 
-            NomDeCompte = Console.ReadLine().ToUpper();
+            NomDeCompte = Console.ReadLine();
             if (NomDeCompte.ToUpper() == "QUITTER") { Menus.Quitter(1); }
 
             Mdp = Console.ReadLine();
-
             if (Mdp.ToUpper() == "QUITTER") { Menus.Quitter(2); }
-            else if (nomDeCompte == "ADMIN" && mdp == "admin")
-            {
 
+            else if (nomDeCompte.ToUpper() == "ADMIN" && mdp == "admin")
+            {
+                Console.WriteLine("\r\n\tConnecté en tant que " + NomDeCompte);
             }
             else
             {

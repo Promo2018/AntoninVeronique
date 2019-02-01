@@ -28,11 +28,11 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
 
 
-        public List<Participant_ADO> Find(Participant_ADO id)
+        public List<Participant_ADO> FindID(Participant_ADO id)
         {
 
             // construction de la requete
-            string rq = "select * from Participants where ";
+            string rq = "select distinct * from Participants where ";
             if (id.NumeroSequentiel > -1) { rq += "ID_Participant = " + id.NumeroSequentiel + " and "; }
             if (!string.IsNullOrEmpty(id.Civilite)) { rq += "Civilite = '" + id.Civilite + "' and "; }
             if (!string.IsNullOrEmpty(id.Nom)) { rq += "Nom = '" + id.Nom + "' and "; }
@@ -72,6 +72,56 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             return maListe;
         }
 
+        public List<Participant_ADO> FindGeneral(Participant_ADO id)
+        {
+
+            // construction de la requete
+            string rq = "select distinct * from Participants where (";
+            if (id.NumeroSequentiel > -1) { rq += "ID_Participant = " + id.NumeroSequentiel + " or "; }
+            if (!string.IsNullOrEmpty(id.Civilite)) { rq += "Civilite = '" + id.Civilite + "' or "; }
+            if (!string.IsNullOrEmpty(id.Nom)) { rq += "Nom = '" + id.Nom + "' or "; }
+            if (!string.IsNullOrEmpty(id.Prenom)) { rq += "Prenom = '" + id.Prenom + "' or "; }
+            if (!string.IsNullOrEmpty(id.Adresse)) { rq += "Adresse = '" + id.Adresse + "' or "; }
+            if (!string.IsNullOrEmpty(id.Telephone)) { rq += "Telephone = '" + id.Telephone + "' or "; }
+            if (id.DateNaissance > DateTime.Parse("02/01/1990")) { rq += "DateNaissance = '" + id.DateNaissance.ToShortDateString() + "' or "; }
+            if (!string.IsNullOrEmpty(id.Client.ToString())) { rq += "Client = '" + id.Client + "' or "; }
+            if (!string.IsNullOrEmpty(id.Email)) { rq += "Email = '" + id.Email + "') and "; }
+            // rajout de la condition, toujours vraie "1 = 1" pour terminer le dernier 'and'
+            rq += "1 = 1";
+
+
+            this.bdd.Connect();
+            DataSet ds = this.bdd.ExecSelect(rq);
+            List<Participant_ADO> maListe = new List<Participant_ADO>();
+            if (ds.Tables["Resultat"].Rows.Count > 0)
+            {
+                foreach (DataRow ligne in ds.Tables["Resultat"].Rows)
+                {
+                    Participant_ADO partic = new Participant_ADO(
+                        Int32.Parse(ligne["ID_Participant"].ToString()),
+                        ligne["Civilite"].ToString(),
+                        ligne["Nom"].ToString(),
+                        ligne["Prenom"].ToString(),
+                        ligne["Adresse"].ToString(),
+                        ligne["Telephone"].ToString(),
+                        DateTime.Parse(ligne["DateNaissance"].ToString()),
+                        ligne["Age"].ToString(),
+                        Boolean.Parse(ligne["Client"].ToString()),
+                        ligne["Email"].ToString()
+                        );
+
+                    maListe.Add(partic);
+                }
+            }
+            return maListe;
+        }
+
+
+        public void RechercheDoss(int idPartic)
+        {
+
+        }
+
 
         public void Ajouter(Participant_ADO p)
         {
@@ -86,9 +136,9 @@ namespace Projet2_BoVoyage_VL_AP.Controller
         public void Modifier()
         {
 
-            participantADO.RechercheChamps();
+            participantADO.RechercheChampsID();
 
-            foreach (Participant_ADO elem in Find(participantADO))
+            foreach (Participant_ADO elem in FindID(participantADO))
             {
                 Console.WriteLine(elem.AfficherChamps());
             }
@@ -150,16 +200,36 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             bdd.Disconnect();
         }
 
-        public void Rechercher()
+        public void RechercherID()
         {
-            participantADO.RechercheChamps();
+            participantADO.RechercheChampsID();
 
-            foreach (Participant_ADO elem in Find(participantADO))
+            foreach (Participant_ADO elem in FindID(participantADO))
             {
                 Console.WriteLine(elem.AfficherChamps());
             }
 
+        }
 
+        public void RechercherGeneral()
+        {
+            participantADO.RechercheChampsGeneral();
+
+            foreach (Participant_ADO elem in FindGeneral(participantADO))
+            {
+                Console.WriteLine(elem.AfficherChamps());
+            }
+
+        }
+
+        public void DossAssocie()
+        {
+
+            int idPartic = Int32.Parse(Console.ReadLine());
+
+            bdd.Connect();
+            bdd.ExecDossAssocie(idPartic);
+            bdd.Disconnect();
         }
 
         public void Ajouter()

@@ -32,14 +32,14 @@ namespace Projet2_BoVoyage_VL_AP.View
             
             string actions = "";
 
-            if (menu.ToUpper() == "VOYAGE") { actions = "Modifier, Ajouter, Supprimer,"; }
+            if (menu.ToUpper() == "VOYAGE") { actions = "Rechercher, Modifier, Ajouter, Supprimer,"; }
             else if (menu.ToUpper() == "DOSSIER") { actions = "Accepter, Verif Solvabilite, Annuler,"; }
-            else { actions = "Modifier, Ajouter,"; }
+            else { actions = "Rechercher, Dossier Associe, Modifier, Ajouter,"; }
 
             Console.WriteLine("");
             Console.WriteLine("\r\n\t***********************************************");
             Console.WriteLine("\t" + menu.ToUpper() + " | Que souhaitez-vous faire ?");
-            Console.WriteLine("\t       | Rechercher, " +  actions + " Retour Menu, Deconnexion, Quitter\r\n");
+            Console.WriteLine("\t       | Rechercher ID, " +  actions + " Retour Menu, Deconnexion, Quitter\r\n");
 
         }
 

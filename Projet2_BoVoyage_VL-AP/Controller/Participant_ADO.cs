@@ -47,7 +47,7 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             Adresse = adresse;
             Telephone = telephone;
             DateNaissance = dateNaissance;
-            //Age = age;
+            Age = age;
             Client = client;
             Email = email;
             
@@ -62,40 +62,59 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
         public string AfficherChamps()
         {
-            return (Civilite + "; " + Prenom + "; " + Nom + "; " + Adresse + "; " + 
-                Telephone + "; " + DateNaissance.ToShortDateString() + "; " + Age + "; " + Client + "; " + Email);
+            return ("\r\n\tIDParticipant= " + NumeroSequentiel + "; Client?= " + Client + "; " + Civilite + "; Prenom= " + Prenom + "; Nom= " + Nom + "; Adresse= " + 
+                Adresse + "; Tel= " + Telephone + "; DateNaissance= " + DateNaissance.ToShortDateString() + "; Age= " + Age + "ans; Email= " + Email);
         }
 
 
-        public void RechercheChamps()
+        public void RechercheChampsID()
         {
+
             try
-            { 
+            {
                 NumeroSequentiel = Int32.Parse(Console.ReadLine());
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                NumeroSequentiel = 0;
+                Affichage.Erreur(e);
             }
 
-
-            /*
-            string recherche = Console.ReadLine();
-
-            if (Civilite.Contains(recherche)) { Civilite = recherche; }
-            if (Nom.Contains(recherche)) { Nom = recherche; }
-            if (Prenom.Contains(recherche)) { Prenom = recherche; }
-            if (Adresse.Contains(recherche)) { Adresse = recherche; }
-            if (Telephone.Contains(recherche)) { Telephone = recherche; }
-            if (DateNaissance.ToString().Contains(recherche)) { DateNaissance = DateTime.Parse(recherche); }
-            if (Age.Contains(recherche)) { Age = recherche; }
-            if (Client.ToString().Contains(recherche)) { Client = Convert.ToBoolean(recherche); }
-            if (Email.Contains(recherche)) { Email = recherche; }
-
-            */
         }
 
 
+        public void RechercheChampsGeneral()
+        {
+
+            try
+            {
+                string recherche = Console.ReadLine();
+
+                bool successInt = Int32.TryParse(recherche, out int num);
+                bool successDat = DateTime.TryParse(recherche, out DateTime dat);
+                bool successBoo = Boolean.TryParse(recherche, out bool boo);
+
+                Civilite = recherche.ToString();
+                Nom = recherche.ToString();
+                Prenom = recherche.ToString();
+                Adresse = recherche.ToString();
+                Telephone = recherche.ToString();
+                Age = recherche.ToString();
+                Email = recherche.ToString();
+
+                if (successInt) { NumeroSequentiel = num; }
+                else { NumeroSequentiel = -1; }
+                if (successDat) { DateNaissance = dat; }
+                else { DateNaissance = DateTime.Parse("01/01/1900"); }
+                if (successBoo) { Client = boo; }
+                else { Client = null; }
+
+            }
+            catch (Exception e)
+            {
+                Affichage.Erreur(e);
+            }
+
+        }
 
     }
 }

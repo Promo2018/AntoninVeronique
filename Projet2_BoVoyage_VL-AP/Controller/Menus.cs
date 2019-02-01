@@ -19,7 +19,8 @@ namespace Projet2_BoVoyage_VL_AP.Controller
         public Menus()
         {
 
-            //auth.Connexion();
+            Affichage.CheminDossier();
+            auth.Connexion();
 
         }
 
@@ -67,13 +68,13 @@ namespace Projet2_BoVoyage_VL_AP.Controller
                     break;
 
                     
-                case ("RECHERCHER" + "DOSSIER"):
+                case ("RECHERCHER ID" + "DOSSIER"):
 
                     //AMELIORATIONS : rechercher grâce à des ".Contains()" pour recherche puissante.
 
                     Affichage.Question(Menu, Action);
 
-                    dossier.Rechercher();
+                    dossier.RechercherID();
 
                     Action = "";
 
@@ -106,7 +107,7 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
                     Affichage.Question(Menu, Action);
 
-                    dossier.Annuler("raison");
+                    dossier.Annuler();
 
                     Action = "";
 
@@ -114,18 +115,31 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
 
                     
+                case ("RECHERCHER ID" + "VOYAGE"):
+
+                    //AMELIORATIONS : rechercher grâce à des ".Contains()" pour recherche puissante.
+
+                    Affichage.Question(Menu, Action);
+
+                    voyage.RechercherID();
+
+                    Action = "";
+
+                    break;
+
+
                 case ("RECHERCHER" + "VOYAGE"):
 
                     //AMELIORATIONS : rechercher grâce à des ".Contains()" pour recherche puissante.
 
                     Affichage.Question(Menu, Action);
 
-                    voyage.Rechercher();
+                    voyage.RechercherGeneral();
 
                     Action = "";
 
                     break;
-                    
+
 
                 case ("MODIFIER" + "VOYAGE"):
 
@@ -170,20 +184,42 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
 
 
-                case ("RECHERCHER" + "CLIENT"):
+                case ("RECHERCHER ID" + "CLIENT"):
 
                     //AMELIORATIONS : rechercher grâce à des "Contain()" pour recherche puissante.
 
                     Affichage.Question(Menu, Action);
 
-                    participant.Rechercher();
+                    participant.RechercherID();
 
                     Action = "";
 
                     break;
 
 
-                    
+                case ("DOSSIER ASSOCIE" + "CLIENT"):
+
+                    Affichage.Question(Menu, Action);
+                    participant.DossAssocie();
+
+                    Action = "";
+
+                    break;
+
+
+                case ("RECHERCHER" + "CLIENT"):
+
+                    //AMELIORATIONS : rechercher grâce à des "Contain()" pour recherche puissante.
+
+                    Affichage.Question(Menu, Action);
+
+                    participant.RechercherGeneral();
+
+                    Action = "";
+
+                    break;
+
+
                 case ("MODIFIER" + "CLIENT"):
 
                     Affichage.Question(Menu, Action);

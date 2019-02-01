@@ -26,11 +26,11 @@ namespace Projet2_BoVoyage_VL_AP.Controller
         List<string> champs = new List<string>();
 
 
-        public List<Voyage_ADO> Find(Voyage_ADO id)
+        public List<Voyage_ADO> FindID(Voyage_ADO id)
         {
             
             // construction de la requete
-            string rq = "select * from Voyages V, Destinations D where D.ID_Destination = V.ID_Destination and ";
+            string rq = "select distinct * from Voyages V, Destinations D where D.ID_Destination = V.ID_Destination and ";
             if (id.Id_Voyage > -1) { rq += "V.ID_Voyage = " + id.Id_Voyage + " and "; }
             if (id.DateAller > DateTime.Parse("02/01/1990")) { rq += "V.DateAller = '" + id.DateAller.ToShortDateString() + "' and "; }
             if (id.DateRetour > DateTime.Parse("02/01/1990")) { rq += "V.DateRetour = '" + id.DateRetour.ToShortDateString() + "' and "; }
@@ -72,7 +72,54 @@ namespace Projet2_BoVoyage_VL_AP.Controller
             return maListe;
         }
 
-        
+
+
+        public List<Voyage_ADO> FindGeneral(Voyage_ADO id)
+        {
+
+            // construction de la requete
+            string rq = "select distinct * from Voyages V, Destinations D where D.ID_Destination = V.ID_Destination and (";
+            if (id.Id_Voyage > -1) { rq += "V.ID_Voyage = " + id.Id_Voyage + " or "; }
+            if (id.DateAller > DateTime.Parse("02/01/1990")) { rq += "V.DateAller = '" + id.DateAller.ToShortDateString() + "' or "; }
+            if (id.DateRetour > DateTime.Parse("02/01/1990")) { rq += "V.DateRetour = '" + id.DateRetour.ToShortDateString() + "' or "; }
+            if (id.PlacesDisponibles > -1) { rq += "V.PlacesDisponibles = " + id.PlacesDisponibles + " or "; }
+            if (id.TarifTTC > -1) { rq += "V.TarifTTC = " + id.TarifTTC + " or "; }
+            if (!string.IsNullOrEmpty(id.AgenceVoyage)) { rq += "V.AgenceVoyage = '" + id.AgenceVoyage + "' or "; }
+            if (id.Id_Destination > -1) { rq += "V.ID_Destination = " + id.Id_Destination + " or "; }
+            if (!string.IsNullOrEmpty(id.Continent)) { rq += "D.Continent = '" + id.Continent + "' or "; }
+            if (!string.IsNullOrEmpty(id.Pays)) { rq += "D.Pays = '" + id.Pays + "' or "; }
+            if (!string.IsNullOrEmpty(id.Region)) { rq += "D.Region = '" + id.Region + "' or "; }
+            if (!string.IsNullOrEmpty(id.Description)) { rq += "D.DescriptionVoyage = '" + id.Description + "' and "; }
+            // rajout de la condition, toujours vraie "1 = 1" pour terminer le dernier 'and'
+            rq += "1 = 1)";
+
+            this.bdd.Connect();
+            DataSet ds = this.bdd.ExecSelect(rq);
+            List<Voyage_ADO> maListe = new List<Voyage_ADO>();
+            if (ds.Tables["Resultat"].Rows.Count > 0)
+            {
+                foreach (DataRow ligne in ds.Tables["Resultat"].Rows)
+                {
+                    Voyage_ADO voy = new Voyage_ADO(
+                        Int32.Parse(ligne["ID_Voyage"].ToString()),
+                        DateTime.Parse(ligne["DateAller"].ToString()),
+                        DateTime.Parse(ligne["DateRetour"].ToString()),
+                        Int32.Parse(ligne["PlacesDisponibles"].ToString()),
+                        Decimal.Parse(ligne["TarifTTC"].ToString()),
+                        ligne["AgenceVoyage"].ToString(),
+                        Int32.Parse(ligne["ID_Destination"].ToString()),
+                        ligne["Continent"].ToString(),
+                        ligne["Pays"].ToString(),
+                        ligne["Region"].ToString(),
+                        ligne["DescriptionVoyage"].ToString()
+                        );
+
+                    maListe.Add(voy);
+                }
+            }
+            return maListe;
+        }
+
         public void Ajouter(Voyage_ADO v)
         {
             this.bdd.Connect();
@@ -93,9 +140,9 @@ namespace Projet2_BoVoyage_VL_AP.Controller
         public void Modifier()
         {
             
-            voyageADO.RechercheChamps();
+            voyageADO.RechercheChampsID();
 
-            foreach (Voyage_ADO elem in Find(voyageADO))
+            foreach (Voyage_ADO elem in FindID(voyageADO))
             {
                 Console.WriteLine(elem.AfficherChamps());
             }
@@ -148,16 +195,25 @@ namespace Projet2_BoVoyage_VL_AP.Controller
         }
 
 
-        public void Rechercher()
+        public void RechercherGeneral()
         {
-            voyageADO.RechercheChamps();
+            voyageADO.RechercheChampsGeneral();
 
-            foreach (Voyage_ADO elem in Find(voyageADO))
+            foreach (Voyage_ADO elem in FindGeneral(voyageADO))
             {
                 Console.WriteLine(elem.AfficherChamps());
             }
         }
 
+        public void RechercherID()
+        {
+            voyageADO.RechercheChampsID();
+
+            foreach (Voyage_ADO elem in FindID(voyageADO))
+            {
+                Console.WriteLine(elem.AfficherChamps());
+            }
+        }
 
         public void Ajouter()
         {
@@ -172,9 +228,9 @@ namespace Projet2_BoVoyage_VL_AP.Controller
 
         public void Supprimer()
         {
-            voyageADO.RechercheChamps();
+            voyageADO.RechercheChampsID();
 
-            foreach (Voyage_ADO elem in Find(voyageADO))
+            foreach (Voyage_ADO elem in FindID(voyageADO))
             {
                 Affichage.Valider("supprimer", elem.AfficherChamps());
             }
